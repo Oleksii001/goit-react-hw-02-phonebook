@@ -6,7 +6,6 @@ class Form extends Component {
   state = {
     name: '',
     number: '',
-    isContactInList: false,
   };
 
   handleNameChange = event => {
@@ -24,9 +23,10 @@ class Form extends Component {
     );
   };
 
-  handleAddContact = () => {
-    if (this.state.name.trim() !== '') {
-      if (this.isContactInList()) {
+
+  handleSubmit = event => {
+    event.preventDefault();
+    if (this.isContactInList()) {
         alert('This contact already exists!');
       } else {
         const newContact = {
@@ -37,11 +37,6 @@ class Form extends Component {
         this.props.addContact(newContact);
         this.setState({ name: '', number: '' });
       }
-    }
-  };
-
-  handleSubmit = event => {
-    event.preventDefault();
   };
 
   render() {
@@ -74,7 +69,6 @@ class Form extends Component {
         <button
           type="submit"
           className={css.formButton}
-          onClick={this.handleAddContact}
         >
           Add contact
         </button>
